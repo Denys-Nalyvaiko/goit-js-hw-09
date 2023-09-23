@@ -6,6 +6,7 @@ startBtnRef.addEventListener('click', handleStartBtnClick);
 stopBtnRef.addEventListener('click', handleStopBtnClick);
 
 stopBtnRef.disabled = true;
+document.body.style.transition = 'background-color 300ms ease-in-out 50ms';
 
 function handleStartBtnClick() {
   document.body.style.backgroundColor = getRandomHexColor();
