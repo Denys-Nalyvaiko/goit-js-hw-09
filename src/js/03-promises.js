@@ -19,6 +19,11 @@ function handleFormSubmit(event) {
   function showPromise() {
     counter += 1;
 
+    if (counter > Number(amount.value) || Number(amount.value) === 0) {
+      clearInterval(intervalId);
+      return;
+    }
+
     createPromise(counter, step.value)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
@@ -26,10 +31,6 @@ function handleFormSubmit(event) {
       .catch(({ position, delay }) => {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
-
-    if (counter === Number(amount.value)) {
-      clearInterval(intervalId);
-    }
   }
 }
 
