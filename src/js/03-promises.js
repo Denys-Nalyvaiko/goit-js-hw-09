@@ -8,29 +8,34 @@ function handleFormSubmit(event) {
   event.preventDefault();
 
   const { delay, step, amount } = event.currentTarget.elements;
+  const dealyValue = delay.value;
+  const stepValue = step.value;
+  const amountValue = amount.value;
   let counter = 0;
   let intervalId = 0;
 
   setTimeout(() => {
     showPromise();
-    intervalId = setInterval(showPromise, step.value);
-  }, delay.value);
+    intervalId = setInterval(showPromise, stepValue);
+  }, dealyValue);
 
   function showPromise() {
     counter += 1;
 
-    if (counter > Number(amount.value) || Number(amount.value) === 0) {
+    if (counter > Number(amountValue) || Number(amountValue) === 0) {
       clearInterval(intervalId);
       return;
     }
 
-    createPromise(counter, step.value)
+    createPromise(counter, stepValue)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
       });
+
+    promisesFormRef.reset();
   }
 }
 
